@@ -1,0 +1,69 @@
+# pre-commit is a useful tool which can be setup  by contributors
+# per-repository in a few simple steps given that the
+# repository has a config file like this one.
+#
+# The configured hooks are run on `git commit`. If one of the hooks makes or
+# demands a change of the commits contents the commit process is aborted.
+# The hooks can also be run manually through `pre-commit run --all-files`.
+
+minimum_pre_commit_version: "1.15"
+
+# The following hooks will be run before a commit is created
+repos:
+  # general stuff
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      # check file system problems
+      - id: check-case-conflict
+      - id: check-symlinks
+      - id: destroyed-symlinks
+
+      # unify whitespace and line ending
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+
+      # sort requirements.txt files
+      - id: requirements-txt-fixer
+
+  # format python files
+  - repo: https://github.com/psf/black
+    rev: 22.12.0
+    hooks:
+      - id: black
+        language_version: python3
+
+  # sort python imports
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+
+  # check pep8 conformity using flake8
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        args: ["--ignore=E712,E501"]
+    #     exclude: (settings|wsgi|asgi|manage)
+
+  # Prettier - a code formatter
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.5.1
+    hooks:
+      - id: prettier
+        types_or: [css, scss, javascript, ts, tsx, json, yaml]
+
+  # Indenting for html files
+  - repo: https://github.com/rtts/djhtml
+    rev: v1.5.2
+    hooks:
+      - id: djhtml
+
+  # # Linter for css files
+  # - repo: https://github.com/thibaudcolas/pre-commit-stylelint
+  #   rev: v14.2.0
+  #   hooks:
+  #     - id: stylelint

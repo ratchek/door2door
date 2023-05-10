@@ -1,0 +1,5 @@
+env/
+static/
+settings.ini
+*.pyc
+db.sqlite3
