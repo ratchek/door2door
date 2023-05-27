@@ -4,3 +4,11 @@
         <li>{{ landlord }}</li>
     {% endfor %}
 </ul>
+
+<form action="{%url 'address-info' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+
+<p> Check </p>
