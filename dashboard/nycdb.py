@@ -1,5 +1,9 @@
+import logging
+
 import psycopg2
 from decouple import config
+
+logger = logging.getLogger(__name__)
 
 
 def get_landlords_from_database(street_name: str, street_number: str) -> list[str]:
@@ -33,26 +37,31 @@ def get_landlords_from_database(street_name: str, street_number: str) -> list[st
             """,
             {"street_number": street_number, "street_name": street_name},
         )
-        print("Query")
-        print(cursor.query)
+        logger.debug("Query sent to database:")
+        logger.debug(cursor.query)
         result = cursor.fetchall()
 
     except psycopg2.Error as error:
-        print("Problem with database")
-        print(error)
+        logger.error("Problem with database")
+        logger.error(error)
         result = None
     finally:
         conn.close()
-        print("Database connection closed")
+        logger.debug("Database connection closed")
 
-    print(result)
+    logger.debug(result)
     return result
 
 
 def get_landlords(street_name: str, street_number: str) -> list[str]:
     landlords = get_landlords_from_database(street_name.upper(), street_number.upper())
-    transtable = str.maketrans(",", " ", "'()")
-    landlords_formatted = [t[0].translate(transtable).title() for t in landlords]
-    landlords_deduplicated = set(landlords_formatted)
-    print(landlords_deduplicated)
-    return landlords_deduplicated
+    if len(landlords) > 0:
+        transtable = str.maketrans(",", " ", "'()")
+        landlords_formatted = [t[0].translate(transtable).title() for t in landlords]
+        landlords_deduplicated = set(landlords_formatted)
+        logger.debug("get_landlords is returning with:")
+        logger.debug(landlords_deduplicated)
+        return landlords_deduplicated
+    else:
+        logger.warning("get_landlords is returning an empty list!")
+        return []
