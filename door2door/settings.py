@@ -96,7 +96,15 @@ else:
             "PASSWORD": config("DB_PASSWORD"),
             "HOST": "localhost",
             "PORT": "",
-        }
+        },
+        "nycdb": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": config("NYCDB_DB_NAME"),
+            "USER": config("NYCDB_DB_USER"),
+            "PASSWORD": config("NYCDB_DB_PASSWORD"),
+            "HOST": "localhost",
+            "PORT": "",
+        },
     }
 
 # Password validation
