@@ -9,26 +9,25 @@ def index(request):
     return HttpResponse("Hello, world. This is gonna be a dashboard.")
 
 
-def landlords(request):
+def address_info(request):
     if request.method == "POST":
         form = AddressForm(request.POST)
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
+            cleaned = form.cleaned_data
             landlords = nycdb.get_landlords(
-                form.cleaned_data["street_name"], form.cleaned_data["street_number"]
+                cleaned["street_name"], cleaned["street_number"]
             )
+            address = cleaned["street_number"] + " " + cleaned["street_name"]
             blank_form = AddressForm()
             # Create a new, blank form to attach to new page
             return render(
                 request,
-                "door2door/landlord.html",
-                {"landlords": landlords, "form": blank_form},
+                "door2door/address_info.html",
+                {"landlords": landlords, "form": blank_form, "address": address},
             )
 
     # if a GET (or any other method) we'll create a blank form
     else:
         blank_form = AddressForm()
 
-    return render(request, "door2door/landlord.html", {"form": blank_form})
+    return render(request, "door2door/address_info.html", {"form": blank_form})
