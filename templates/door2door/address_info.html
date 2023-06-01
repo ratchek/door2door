@@ -1,23 +1,28 @@
-<h1>Address information</h1>
-<form action="{%url 'address-info' %}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
+{% extends "base.html" %}
 
-{%if address%}
-    {%if landlords%}
-        <h2>Here's a list of landlords for {{address}}</h2>
-        <ul>
-            {% for landlord in landlords %}
-                <li>{{ landlord }}</li>
-            {% endfor %}
-        </ul>
+{% block content %}
+
+    <h1>Address information</h1>
+    <form action="{%url 'address-info' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+
+    {%if address%}
+        {%if landlords%}
+            <h2>Here's a list of landlords for {{address}}</h2>
+            <ul>
+                {% for landlord in landlords %}
+                    <li>{{ landlord }}</li>
+                {% endfor %}
+            </ul>
+        {%else%}
+            <h2> No landlords found for {{address}} :'( </h2>
+        {%endif%}
     {%else%}
-        <h2> No landlords found for {{address}} :'( </h2>
+        <h2> Enter an address </h2>
+
+
     {%endif%}
-{%else%}
-    <h2> Enter an address </h2>
-
-
-{%endif%}
+{% endblock %}

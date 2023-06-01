@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -9,6 +10,7 @@ def index(request):
     return HttpResponse("Hello, world. This is gonna be a dashboard.")
 
 
+@login_required
 def address_info(request):
     if request.method == "POST":
         form = AddressForm(request.POST)

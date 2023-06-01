@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "dashboard.apps.DashboardConfig",
 ]
 
 MIDDLEWARE = [
@@ -149,3 +150,9 @@ STATICFILES_DIRS = (BASE_DIR / "staticfiles/",)
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = "/"
+if DEVELOPMENT_MODE:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
