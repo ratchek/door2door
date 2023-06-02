@@ -1,13 +1,16 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
 from . import nycdb
 from .forms import AddressForm
 
 
 def index(request):
-    return HttpResponse("Hello, world. This is gonna be a dashboard.")
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("dashboard:address-info"))
+    return render(request, "door2door/index.html", {})
 
 
 @login_required

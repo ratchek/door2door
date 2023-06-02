@@ -153,6 +153,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
+# This is hard coded, because reverse() is complaining that app isn't loaded yet
 LOGIN_REDIRECT_URL = "/"
 if DEVELOPMENT_MODE:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

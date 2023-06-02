@@ -8,6 +8,8 @@
 
 minimum_pre_commit_version: "1.15"
 
+exclude: ".*pico.*"
+
 # The following hooks will be run before a commit is created
 repos:
   # general stuff

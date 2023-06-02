@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <article class="grid">
+        <div>
+            <img src="{% static "img/hero_img.jpg" %}">
+        </div>
+        <div>
+            <hgroup>
+                <h1>Door2Door</h1>
+                <h2>To use this app, you need to be a logged in as a user.</h2>
+            </hgroup>
+            <p><a href="{% url 'login'%}" role="button" >Log In</a></p>
+        </div>
+
+    </article>
+{% endblock %}

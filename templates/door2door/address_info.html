@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "logged_in_base.html" %}
 
 {% block content %}
 
     <h1>Address information</h1>
-    <form action="{%url 'address-info' %}" method="post">
+    <form action="{%url 'dashboard:address-info' %}" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Submit">
