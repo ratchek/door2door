@@ -3,13 +3,27 @@
 {% block content %}
 
     <h1>Address information</h1>
-    <form action="{%url 'dashboard:address-info' %}" method="post">
+    <form action="{%url 'address-info' %}" method="post">
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
+        {{ search_form }}
+        <input type="submit" name="search" value="Search">
+    </form>
+    <hr>
+    <form action="{%url 'address-info' %}" method="post">
+        {% csrf_token %}
+        {{ current_visit_form }}
+        <input type="submit" name="save" value="Save">
     </form>
 
     {%if address%}
+        {%if past_visits%}
+            <h2> past visits  </h2>
+            <ul>
+                {%for visit in past_visits%}
+                    <li> {{visit}} /// {{visit.notes}}</li>
+                {%endfor%}
+            </ul>
+        {%endif%}
         {%if landlords%}
             <h2>Here's a list of landlords for {{address}}</h2>
             <ul>
@@ -19,6 +33,7 @@
             </ul>
         {%else%}
             <h2> No landlords found for {{address}} :'( </h2>
+            <p> That's not bad news though! If you didn't make a mistake inputing the address and you are sure this is a residential building, that just means that by law, either the landlord or their immediate family HAS TO live in this building. </p>
         {%endif%}
     {%else%}
         <h2> Enter an address </h2>

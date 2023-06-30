@@ -48,7 +48,7 @@ repos:
     rev: 6.0.0
     hooks:
       - id: flake8
-        args: ["--ignore=E712,E501"]
+        args: ["--ignore=E712,E501, W503"]
     #     exclude: (settings|wsgi|asgi|manage)
 
   # Prettier - a code formatter
