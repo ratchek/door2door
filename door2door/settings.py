@@ -34,9 +34,9 @@ if DEVELOPMENT_MODE:
     ALLOWED_HOSTS = ["localhost"]
 else:
     ALLOWED_HOSTS = [config("DOMAIN"), "www." + config("DOMAIN")]
-    # SECURE_SSL_REDIRECT = True
-    # SESSION_COOKIE_SECURE = True
-    # CSRF_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 # Application definition
 
