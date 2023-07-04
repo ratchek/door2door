@@ -97,7 +97,7 @@ def address_info(request, house_number=None, street_name=None):
                 building_id=building_id,
                 visiting_agent=request.user,
                 date_of_visit__lt=date.today(),
-            )
+            ).order_by("-date_of_visit")
             todays_visit = VisitedAddress.objects.filter(
                 building_id=building_id,
                 visiting_agent=request.user,
