@@ -86,7 +86,6 @@ def address_info(request, house_number=None, street_name=None):
     # GET
     else:
         # Create blank form for search
-        blank_search_form = AddressForm()
         landlords = address = past_visits = current_visit_form = None
         address = None
         if house_number and street_name:
@@ -103,16 +102,23 @@ def address_info(request, house_number=None, street_name=None):
                 visiting_agent=request.user,
                 date_of_visit=date.today(),
             )
+            search_form = AddressForm(
+                initial={"house_number": house_number, "street_name": street_name}
+            )
             if todays_visit:
                 current_visit_form = VisitForm(instance=todays_visit[0])
             else:
                 current_visit_form = VisitForm(initial={"building_id": building_id})
+
+        else:
+            search_form = AddressForm()
+
     return render(
         request,
         "door2door/address_info.html",
         {
             "landlords": landlords,
-            "search_form": blank_search_form,
+            "search_form": search_form,
             "address": address,
             "past_visits": past_visits,
             "current_visit_form": current_visit_form,
