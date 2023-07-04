@@ -81,7 +81,15 @@ def address_info(request, house_number=None, street_name=None):
                     )
                 )
 
-        return HttpResponseRedirect(request.path_info)
+        return HttpResponseRedirect(
+            reverse(
+                "address-info",
+                kwargs={
+                    "house_number": house_number,
+                    "street_name": street_name,
+                },
+            )
+        )
 
     # GET
     else:
@@ -120,6 +128,8 @@ def address_info(request, house_number=None, street_name=None):
             "landlords": landlords,
             "search_form": search_form,
             "address": address,
+            "house_number": house_number,
+            "street_name": street_name,
             "past_visits": past_visits,
             "current_visit_form": current_visit_form,
         },

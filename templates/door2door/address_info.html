@@ -27,7 +27,7 @@
         {%endif%}
 
 
-        <form action="{%url 'address-info' %}" method="post">
+        <form action="{%url 'address-info' house_number=house_number street_name=street_name %}" method="post">
             {% csrf_token %}
             {% comment %} {{ current_visit_form.non_field_errors }}
             {{ current_visit_form.knocked.errors }}
@@ -48,9 +48,10 @@
 
             {{current_visit_form.notes}}
             {{current_visit_form.building_id}} {% endcomment %}
-
-            {{current_visit_form}}
-
+            <b> Visit: </b>
+            <table>
+                {{current_visit_form.as_table}}
+            </table>
             <input type="submit" name="save" value="Save">
         </form>
     {%else%}
