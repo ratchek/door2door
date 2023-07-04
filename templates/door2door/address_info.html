@@ -2,6 +2,8 @@
 
 {% block content %}
 
+
+
     <h1>Address information</h1>
     <form action="{%url 'address-info' %}" method="post">
         {% csrf_token %}
@@ -9,15 +11,11 @@
         <input type="submit" name="search" value="Search">
     </form>
     <hr>
-    <form action="{%url 'address-info' %}" method="post">
-        {% csrf_token %}
-        {{ current_visit_form }}
-        <input type="submit" name="save" value="Save">
-    </form>
 
     {%if address%}
         {%if landlords%}
-            <h2>Here's a list of landlords for {{address}}</h2>
+            <h1>{{address}}</h1>
+            <b>Landlords:</b>
             <ul>
                 {% for landlord in landlords %}
                     <li>{{ landlord }}</li>
@@ -27,23 +25,50 @@
             <h2> No landlords found for {{address}} :'( </h2>
             <p> That's not bad news though! If you didn't make a mistake inputing the address and you are sure this is a residential building, that just means that by law, either the landlord or their immediate family HAS TO live in this building. </p>
         {%endif%}
-        {%if past_visits%}
-            <h2> Past Visits  </h2>
-            <ul>
-                {%for visit in past_visits%}
-                    <li> <b> {{visit.date_of_visit}} </b>
-                        {%if visit.knocked %} <mark>K</mark>{%endif%}
-                        {%if visit.door_opened %} <mark>D</mark>{%endif%}
-                        {%if visit.owners_available %} <mark>O</mark>{%endif%}
-                        <br>
-                        {{visit.notes}}</li>
-                {%endfor%}
-            </ul>
-        {%endif%}
-
     {%else%}
         <h2> Enter an address </h2>
-
-
     {%endif%}
+    <hr>
+    <b> Visit: </b>
+    <form action="{%url 'address-info' %}" method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.knocked.errors }}
+        <label for="id_visit-knocked">
+            <input type="checkbox" name="visit-knocked" id="id_visit-knocked">
+            Knocked
+        </label>
+        {{ form.door_opened.errors }}
+        <label for="id_visit-door_opened">
+            <input type="checkbox" name="visit-door_opened" id="id_visit-door_opened">
+            Door opened
+        </label>
+        {{ form.owners_available.errors }}
+        <label for="id_visit-owners_available">
+            <input type="checkbox" name="visit-owners_available" id="id_visit-owners_available">
+            Owners available
+        </label>
+
+        {{ form.notes.errors }}
+        <label for="id_visit-notes">Notes</label>
+        <textarea name="visit-notes" cols="40" rows="10" id="id_visit-notes"></textarea>
+        <input type="hidden" name="visit-building_id" value="344790" id="id_visit-building_id">
+
+        <input type="submit" name="save" value="Save">
+    </form>
+
+    {%if past_visits%}
+        <h2> Past Visits  </h2>
+        <ul>
+            {%for visit in past_visits%}
+                <li> <b> {{visit.date_of_visit}} </b>
+                    {%if visit.knocked %} <mark>K</mark>{%endif%}
+                    {%if visit.door_opened %} <mark>D</mark>{%endif%}
+                    {%if visit.owners_available %} <mark>O</mark>{%endif%}
+                    <br>
+                    {{visit.notes}}</li>
+            {%endfor%}
+        </ul>
+    {%endif%}
+
 {% endblock %}
