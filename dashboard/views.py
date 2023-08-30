@@ -22,42 +22,46 @@ def index(request):
     return render(request, "door2door/index.html", {})
 
 
+def save_visit_info_to_database(visit_form, user):
+    cleaned = visit_form.cleaned_data
+    logger.warning("Form data cleaned")
+    # TODO check if data was modified
+
+    building_id = cleaned["building_id"]
+    # Check if there was already a visit today
+    todays_visit = VisitedAddress.objects.filter(
+        building_id=building_id,
+        visiting_agent=user,
+        date_of_visit=date.today(),
+    )
+    if todays_visit:
+        logger.warning("Updating object (since there's already a visit today)")
+        todays_visit[0].knocked = cleaned["knocked"]
+        todays_visit[0].door_opened = cleaned["door_opened"]
+        todays_visit[0].owners_available = cleaned["owners_available"]
+        todays_visit[0].notes = cleaned["notes"]
+        todays_visit[0].save()
+    else:
+        logger.warning("Creating object")
+        VisitedAddress.objects.create(
+            house_number=nycdb.get_building_house_number(building_id),
+            street_name=nycdb.get_building_street_name(building_id),
+            visiting_agent=user,
+            building_id=building_id,
+            date_of_visit=date.today(),
+            knocked=cleaned["knocked"],
+            door_opened=cleaned["door_opened"],
+            owners_available=cleaned["owners_available"],
+            notes=cleaned["notes"],
+        )
+
+
 @login_required
 @require_POST
-def save_visit_info(request, house_number=None, street_name=None):
+def submit_visit_info(request, house_number=None, street_name=None):
     visit_form = VisitForm(request.POST, prefix="visit")
     if visit_form.is_valid() and visit_form.has_changed():
-        cleaned = visit_form.cleaned_data
-        logger.warning("Form data cleaned")
-        # TODO check if data was modified
-
-        building_id = cleaned["building_id"]
-        # Check if there was already a visit today
-        todays_visit = VisitedAddress.objects.filter(
-            building_id=building_id,
-            visiting_agent=request.user,
-            date_of_visit=date.today(),
-        )
-        if todays_visit:
-            logger.warning("Updating object (since there's already a visit today)")
-            todays_visit[0].knocked = cleaned["knocked"]
-            todays_visit[0].door_opened = cleaned["door_opened"]
-            todays_visit[0].owners_available = cleaned["owners_available"]
-            todays_visit[0].notes = cleaned["notes"]
-            todays_visit[0].save()
-        else:
-            logger.warning("Creating object")
-            VisitedAddress.objects.create(
-                house_number=nycdb.get_building_house_number(building_id),
-                street_name=nycdb.get_building_street_name(building_id),
-                visiting_agent=request.user,
-                building_id=building_id,
-                date_of_visit=date.today(),
-                knocked=cleaned["knocked"],
-                door_opened=cleaned["door_opened"],
-                owners_available=cleaned["owners_available"],
-                notes=cleaned["notes"],
-            )
+        save_visit_info_to_database(visit_form, request.user)
         logger.warning("Form data saved")
 
         return HttpResponseRedirect(

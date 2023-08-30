@@ -11,8 +11,8 @@ urlpatterns = [
         name="address-info",
     ),
     re_path(
-        r"^save_visit_info/(?P<house_number>[-\w ]+)/(?P<street_name>[-\w ]+)$",
-        views.save_visit_info,
-        name="save-visit-info",
+        r"^submit_visit_info/(?P<house_number>[-\w ]+)/(?P<street_name>[-\w ]+)$",
+        views.submit_visit_info,
+        name="submit-visit-info",
     ),
 ]
