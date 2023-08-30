@@ -19,7 +19,9 @@ from django.urls import include, path
 
 urlpatterns = [
     path("", include("dashboard.urls")),
-    path("dashboard/", include("dashboard.urls")),
+    # Think this is redundant. Will comment out for now. Eventually just delete.
+    # path("dashboard/", include("dashboard.urls")),
     path("admin/", admin.site.urls),
+    # Used for authentication
     path("accounts/", include("django.contrib.auth.urls")),
 ]
