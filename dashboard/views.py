@@ -25,22 +25,24 @@ def index(request):
 def save_visit_info_to_database(visit_form, user):
     cleaned = visit_form.cleaned_data
     logger.warning("Form data cleaned")
-    # TODO check if data was modified
 
     building_id = cleaned["building_id"]
     # Check if there was already a visit today
+    # TODO: write test to check that this function handles a form that returns
+    # no visits today without crashing
     todays_visit = VisitedAddress.objects.filter(
         building_id=building_id,
         visiting_agent=user,
         date_of_visit=date.today(),
-    )
+    ).first()
+    # If agent already visited house today - update, else - create new record
     if todays_visit:
         logger.warning("Updating object (since there's already a visit today)")
-        todays_visit[0].knocked = cleaned["knocked"]
-        todays_visit[0].door_opened = cleaned["door_opened"]
-        todays_visit[0].owners_available = cleaned["owners_available"]
-        todays_visit[0].notes = cleaned["notes"]
-        todays_visit[0].save()
+        todays_visit.knocked = cleaned["knocked"]
+        todays_visit.door_opened = cleaned["door_opened"]
+        todays_visit.owners_available = cleaned["owners_available"]
+        todays_visit.notes = cleaned["notes"]
+        todays_visit.save()
     else:
         logger.warning("Creating object")
         VisitedAddress.objects.create(
@@ -54,15 +56,18 @@ def save_visit_info_to_database(visit_form, user):
             owners_available=cleaned["owners_available"],
             notes=cleaned["notes"],
         )
+    logger.warning("Form data saved")
 
 
+# Save visit form info and redirect back to address-info page
 @login_required
 @require_POST
 def submit_visit_info(request, house_number=None, street_name=None):
     visit_form = VisitForm(request.POST, prefix="visit")
+    # TODO check if data was modified
+    # Right now visit_form.has_changed() does nothing
     if visit_form.is_valid() and visit_form.has_changed():
         save_visit_info_to_database(visit_form, request.user)
-        logger.warning("Form data saved")
 
         return HttpResponseRedirect(
             reverse(
