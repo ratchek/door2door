@@ -5,7 +5,7 @@
 
 
     <h1>Address information</h1>
-    <form action="{%url 'address-info' %}" method="post">
+    <form action="{%url 'search' %}" method="post">
         {% csrf_token %}
         {{ search_form }}
         <input type="submit" name="search" value="Search">

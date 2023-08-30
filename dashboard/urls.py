@@ -15,4 +15,9 @@ urlpatterns = [
         views.submit_visit_info,
         name="submit-visit-info",
     ),
+    re_path(
+        "search",
+        views.search,
+        name="search",
+    ),
 ]

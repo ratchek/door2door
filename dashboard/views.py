@@ -77,71 +77,58 @@ def submit_visit_info(request, house_number=None, street_name=None):
         )
 
 
+#  Parse search parameters and redirect to address_info with appropriate arguments
 @login_required
-def address_info(request, house_number=None, street_name=None):
-    if request.method == "POST":
-        # Make sure to save any data that has been inputed
-        # (this should be done both, when clicking the save button AND when clicking the search button)
+@require_POST
+def search(request):
+    # TODO check if VisitForm was modified. If yes, call save_visit_info_to_database first
+    # visit_form = VisitForm(request.POST, prefix="visit")
 
-        logger.warning("POST request detected")
-
-        # If a new address is being searched
-        if "search" in request.POST:
-            # Make sure that any information added to the VisitForm is saved
-            # visit_form = VisitForm(request.POST, prefix="visit")
-            # if visit_form.has_changed():
-            address_form = AddressForm(request.POST, prefix="address")
-            if address_form.is_valid():
-                cleaned = address_form.cleaned_data
-                return HttpResponseRedirect(
-                    reverse(
-                        "address-info",
-                        kwargs={
-                            "house_number": cleaned["house_number"],
-                            "street_name": cleaned["street_name"],
-                        },
-                    )
-                )
-
+    address_form = AddressForm(request.POST, prefix="address")
+    if address_form.is_valid():
+        cleaned = address_form.cleaned_data
         return HttpResponseRedirect(
             reverse(
                 "address-info",
                 kwargs={
-                    "house_number": house_number,
-                    "street_name": street_name,
+                    "house_number": cleaned["house_number"],
+                    "street_name": cleaned["street_name"],
                 },
             )
         )
 
-    # GET
-    else:
-        # Create blank form for search
-        landlords = address = past_visits = current_visit_form = None
-        address = None
-        if house_number and street_name:
-            landlords = nycdb.get_landlords(street_name, house_number)
-            address = house_number + " " + street_name
-            building_id = nycdb.get_building_id(street_name, house_number)
-            past_visits = VisitedAddress.objects.filter(
-                building_id=building_id,
-                visiting_agent=request.user,
-                date_of_visit__lt=date.today(),
-            ).order_by("-date_of_visit")
-            todays_visit = VisitedAddress.objects.filter(
-                building_id=building_id,
-                visiting_agent=request.user,
-                date_of_visit=date.today(),
-            )
-            search_form = AddressForm(
-                initial={"house_number": house_number, "street_name": street_name}
-            )
-            if todays_visit:
-                current_visit_form = VisitForm(instance=todays_visit[0])
-            else:
-                current_visit_form = VisitForm(initial={"building_id": building_id})
+    return HttpResponseRedirect(reverse("address-info"))
 
+
+@login_required
+def address_info(request, house_number=None, street_name=None):
+    # Create blank form for search
+    landlords = address = past_visits = current_visit_form = None
+    address = None
+    if house_number and street_name:
+        landlords = nycdb.get_landlords(street_name, house_number)
+        address = house_number + " " + street_name
+        building_id = nycdb.get_building_id(street_name, house_number)
+        past_visits = VisitedAddress.objects.filter(
+            building_id=building_id,
+            visiting_agent=request.user,
+            date_of_visit__lt=date.today(),
+        ).order_by("-date_of_visit")
+        todays_visit = VisitedAddress.objects.filter(
+            building_id=building_id,
+            visiting_agent=request.user,
+            date_of_visit=date.today(),
+        )
+        search_form = AddressForm(
+            initial={"house_number": house_number, "street_name": street_name}
+        )
+        if todays_visit:
+            current_visit_form = VisitForm(instance=todays_visit[0])
         else:
-            search_form = AddressForm()
+            current_visit_form = VisitForm(initial={"building_id": building_id})
+
+    else:
+        search_form = AddressForm()
 
     return render(
         request,
@@ -156,38 +143,3 @@ def address_info(request, house_number=None, street_name=None):
             "current_visit_form": current_visit_form,
         },
     )
-
-
-# @login_required
-# def address_info(request):
-#     if request.method == "POST":
-#         # If a new address is being searched
-#         if "search" in request.POST:
-#             # Make sure that any information added to the VisitForm is saved
-#             # visit_form = VisitForm(request.POST, prefix="visit")
-#             # if visit_form.has_changed():
-#             address_form = AddressForm(request.POST, prefix="address")
-#             if address_form.is_valid():
-#                 cleaned = address_form.cleaned_data
-#                 landlords = nycdb.get_landlords(
-#                     cleaned["street_name"], cleaned["house_number"]
-#                 )
-#                 address = cleaned["house_number"] + " " + cleaned["street_name"]
-#                 blank_form = AddressForm()
-
-#                 # Create a new, blank form to attach to new page
-#                 return render(
-#                     request,
-#                     "door2door/address_info.html",
-#                     {"landlords": landlords, "form": blank_form, "address": address},
-#                 )
-#         # If the save button was hit
-#         if "save" in request.POST:
-#             logger.warning("Form being saved")
-
-#     # GET
-#     else:
-#         # Create blank form for search
-#         blank_form = AddressForm()
-
-#     return render(request, "door2door/address_info.html", {"form": blank_form})
