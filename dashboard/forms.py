@@ -12,19 +12,31 @@ class AddressForm(forms.Form):
     street_name = forms.CharField(label="Street Name", max_length=30)
     prefix = "address"
 
+    def clean_house_number(self):
+        data = self.cleaned_data["house_number"]
+        data.upper()
+        return data
+
+    def clean_street_name(self):
+        data = self.cleaned_data["street_name"]
+        data.upper()
+        return data
+
 
 class VisitForm(forms.ModelForm):
     class Meta:
         model = VisitedAddress
         fields = [
-            "nycdb_building_id",
+            "house_number",
+            "street_name",
             "knocked",
             "door_opened",
             "owners_available",
             "notes",
         ]
         widgets = {
-            "nycdb_building_id": forms.HiddenInput(),
+            "house_number": forms.HiddenInput(),
+            "street_name": forms.HiddenInput(),
         }
 
     prefix = "visit"
