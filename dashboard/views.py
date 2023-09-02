@@ -24,14 +24,13 @@ def index(request):
 
 def save_visit_info_to_database(visit_form, user):
     cleaned = visit_form.cleaned_data
-    logger.warning("Form data cleaned")
 
-    building_id = cleaned["building_id"]
+    nycdb_building_id = cleaned["nycdb_building_id"]
     # Check if there was already a visit today
     # TODO: write test to check that this function handles a form that returns
     # no visits today without crashing
     todays_visit = VisitedAddress.objects.filter(
-        building_id=building_id,
+        nycdb_building_id=nycdb_building_id,
         visiting_agent=user,
         date_of_visit=date.today(),
     ).first()
@@ -46,10 +45,10 @@ def save_visit_info_to_database(visit_form, user):
     else:
         logger.warning("Creating object")
         VisitedAddress.objects.create(
-            house_number=nycdb.get_building_house_number(building_id),
-            street_name=nycdb.get_building_street_name(building_id),
+            house_number=nycdb.get_building_house_number(nycdb_building_id),
+            street_name=nycdb.get_building_street_name(nycdb_building_id),
             visiting_agent=user,
-            building_id=building_id,
+            nycdb_building_id=nycdb_building_id,
             date_of_visit=date.today(),
             knocked=cleaned["knocked"],
             door_opened=cleaned["door_opened"],
@@ -108,14 +107,14 @@ def address_info(request, house_number=None, street_name=None):
     if house_number and street_name:
         landlords = nycdb.get_landlords(street_name, house_number)
         address = house_number + " " + street_name
-        building_id = nycdb.get_building_id(street_name, house_number)
+        nycdb_building_id = nycdb.get_building_id(street_name, house_number)
         past_visits = VisitedAddress.objects.filter(
-            building_id=building_id,
+            nycdb_building_id=nycdb_building_id,
             visiting_agent=request.user,
             date_of_visit__lt=date.today(),
         ).order_by("-date_of_visit")
         todays_visit = VisitedAddress.objects.filter(
-            building_id=building_id,
+            nycdb_building_id=nycdb_building_id,
             visiting_agent=request.user,
             date_of_visit=date.today(),
         )
@@ -125,7 +124,9 @@ def address_info(request, house_number=None, street_name=None):
         if todays_visit:
             current_visit_form = VisitForm(instance=todays_visit[0])
         else:
-            current_visit_form = VisitForm(initial={"building_id": building_id})
+            current_visit_form = VisitForm(
+                initial={"nycdb_building_id": nycdb_building_id}
+            )
 
     else:
         search_form = AddressForm()

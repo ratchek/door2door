@@ -17,14 +17,14 @@ class VisitForm(forms.ModelForm):
     class Meta:
         model = VisitedAddress
         fields = [
-            "building_id",
+            "nycdb_building_id",
             "knocked",
             "door_opened",
             "owners_available",
             "notes",
         ]
         widgets = {
-            "building_id": forms.HiddenInput(),
+            "nycdb_building_id": forms.HiddenInput(),
         }
 
     prefix = "visit"

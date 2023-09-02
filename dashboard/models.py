@@ -7,7 +7,7 @@ class VisitedAddress(models.Model):
     house_number = models.CharField(max_length=10)
     street_name = models.CharField(max_length=50)
     visiting_agent = models.ForeignKey(User, on_delete=models.CASCADE)
-    building_id = models.IntegerField()
+    nycdb_building_id = models.IntegerField(blank=True, null=True)
     date_of_visit = models.DateField()
     knocked = models.BooleanField()
     door_opened = models.BooleanField()
