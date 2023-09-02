@@ -61,11 +61,11 @@ def get_landlords(street_name, house_number):
         transtable = str.maketrans(",", " ", "'()")
         landlords_formatted = [t[0].translate(transtable).title() for t in landlords]
         landlords_deduplicated = set(landlords_formatted)
-        logger.debug("get_landlords is returning with:")
+        logger.debug("nycdb.get_landlords is returning with:")
         logger.debug(landlords_deduplicated)
         return landlords_deduplicated
     else:
-        logger.warning("get_landlords is returning an empty list!")
+        logger.warning("nycdb.get_landlords is returning an empty list!")
         return []
 
 
@@ -92,7 +92,9 @@ def get_building_id(street_name, house_number):
     if building_id:
         return building_id[0][0]
     else:
-        logger.warning("No building_id received from db. Returning None")
+        logger.warning(
+            "No building_id received from db. nycdb.get_building_id is returning None"
+        )
         return None
 
 
@@ -115,7 +117,9 @@ def get_building_street_name(building_id):
     if street_name:
         return street_name[0][0]
     else:
-        logger.warning("No street name received from db. Returning None")
+        logger.warning(
+            "No street name received from db. nycdb.get_building_street_name is returning None"
+        )
         return None
 
 
@@ -138,5 +142,7 @@ def get_building_house_number(building_id):
     if house_number:
         return house_number[0][0]
     else:
-        logger.warning("No street name received from db. Returning None")
+        logger.warning(
+            "No street name received from db. nycdb.get_building_house_number is returning None"
+        )
         return None
