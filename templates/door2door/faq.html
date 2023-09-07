@@ -1,0 +1,79 @@
+{% extends "logged_in_base.html" %}
+{% load static %}
+
+{% block content %}
+
+    {% with email='<script language="JavaScript" type="text/javascript">        var part1 = "door2door";        var part2 = Math.pow(2,6);        var part3 = String.fromCharCode(part2);        var part4 = "ratchek.com";        var part5 = part1 + String.fromCharCode(part2) + part4;        document.write("<a href=" + "mai" + "lto" + ":"        + part5 + ">" + part1 + part3 + part4 + "</a>.");        </script>' %}
+        {% comment %}
+The above script basically composes my email address in the browser so that it doesn't get scraped
+Here is a newlined version (the with tag doesn't allow for new lines i think)
+        '<script language="JavaScript" type="text/javascript">
+        var part1 = "door2door";
+        var part2 = Math.pow(2,6);
+        var part3 = String.fromCharCode(part2);
+        var part4 = "ratchek.com";
+        var part5 = part1 + String.fromCharCode(part2) + part4;
+        document.write("<a href=" + "mai" + "lto" + ":"
+        + part5 + ">" + part1 + part3 + part4 + "</a>.");
+        </script>'
+
+
+        {% endcomment %}
+
+
+        <h1>FAQ</h1>
+
+        <details>
+            <summary> Something's not working with the address lookup</summary>
+            <p> Make sure to check for typos. Make sure <i>Street</i>, <i>Avenue</i>, <i>Drive</i>, <i>Lane</i>, etc. are spelled out. Abbreviations will not work!</p>
+        </details>
+
+
+        <details>
+            <summary> How do I get in touch?</summary>
+            <p>You can email me at {{email}} </p>
+        </details>
+
+        <details>
+            <summary> My friend wants to use this. How do they sign up?</summary>
+            <p>Currently, this website is still a beta version, so I'm the only one that can create accounts.</p>
+            <p>If you know of anyone that would like to start using it right now, tell them to reach out at {{email}}</p>
+        </details>
+
+        <details>
+            <summary> How do i reset my password</summary>
+            <p>Same as with account creation, I'm currently the only one that can do this. Please reach out at {{email}}</p>
+        </details>
+
+
+        <details>
+            <summary> Do the owners appear in any order?</summary>
+            <p> Nope! </p>
+        </details>
+
+
+        <details>
+            <summary> What do the lettered tags next to each past visit mean?</summary>
+            <p>They're just a shorthand for the information you put in during that visit.</p>
+            <ul>
+                <li><mark>K</mark>nocked</li>
+                <li><mark>D</mark>oor Opened</li>
+                <li><mark>O</mark>wners Available</li>
+            </ul>
+        </details>
+
+        <details>
+            <summary> Why do some addresses not have owner info?</summary>
+            <p> This tool is used only for residential properties.
+                Furthermore, NYC does not require landlords to register if the property has 1-2 residential units
+                and the owner or their immediate family lives there.
+                In either of those cases, the owner will not show up in the database.</p>
+        </details>
+
+        {% comment %} <details>
+    <summary> Up down arrows don't work properly</summary>
+    <p>…</p>
+  </details> {% endcomment %}
+    {% endwith %}
+
+{% endblock %}
