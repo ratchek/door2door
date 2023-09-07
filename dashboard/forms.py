@@ -14,12 +14,12 @@ class AddressForm(forms.Form):
 
     def clean_house_number(self):
         data = self.cleaned_data["house_number"]
-        data.upper()
+        data = data.upper()
         return data
 
     def clean_street_name(self):
         data = self.cleaned_data["street_name"]
-        data.upper()
+        data = data.upper()
         return data
 
 
