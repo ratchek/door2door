@@ -23,3 +23,11 @@ class VisitedAddress(models.Model):
             + " - "
             + str(self.date_of_visit)
         )
+
+    def save(self, *args, **kwargs):
+        # Make sure these get saved as upper case
+        self.house_number = self.house_number.upper()
+        self.street_name = self.street_name.upper()
+
+        # call the save() method of the parent
+        super().save(*args, **kwargs)
