@@ -3,14 +3,20 @@
 {% block content %}
 
 
-
     <h1>Address information</h1>
-    <form action="{%url 'search' %}" method="post">
+    <form role="group" action="{%url 'search' %}" method="post">
         {% csrf_token %}
-        <fieldset class="grid">
-            {{ search_form }}
+        <div>
+            {{ search_form.house_number.errors }}
+            {{ search_form.house_number.label_tag }} {{ search_form.house_number }}
+        </div>
+        <div>
+            {{ search_form.street_name.errors }}
+            {{ search_form.street_name.label_tag }} {{ search_form.street_name }}
+        </div>
+        <div>
             <input type="submit" name="search" value="Search">
-        </fieldset>
+        </div>
     </form>
     <hr>
 
