@@ -19,7 +19,7 @@ def index(request):
     # If user is already logged in, redirect to address-info
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse("address-info"))
-    return render(request, "door2door/index.html", {})
+    return render(request, "dashboard/index.html", {})
 
 
 def save_visit_info_to_database(visit_form, user):
@@ -139,7 +139,7 @@ def address_info(request, house_number=None, street_name=None):
 
     return render(
         request,
-        "door2door/address_info.html",
+        "dashboard/address_info.html",
         {
             "landlords": landlords,
             "search_form": search_form,

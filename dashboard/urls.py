@@ -8,7 +8,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path(
         "faq/",
-        login_required(TemplateView.as_view(template_name="door2door/faq.html")),
+        login_required(TemplateView.as_view(template_name="dashboard/faq.html")),
         name="faq",
     ),
     path("address-info/", views.address_info, name="address-info"),
