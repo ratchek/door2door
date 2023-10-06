@@ -1,8 +1,10 @@
 {% extends "logged_in_base.html" %}
+{%load static%}
 
 {% block content %}
 
-
+    <button type="button" value="UP" onClick="up()" > Up </button>
+    <button type="button" value="DOWN" onClick="down()" > Down </button>
     <h1>Address information</h1>
     <form role="group" action="{%url 'search' %}" method="post">
         {% csrf_token %}
@@ -79,5 +81,6 @@
             {%endfor%}
         </ul>
     {%endif%}
+    <script src="{% static 'js/buttons.js' %}"></script>
 
 {% endblock %}
