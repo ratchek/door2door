@@ -1,9 +1,9 @@
-{% extends "logged_in_base.html" %}
+{% extends "dashboard/logged_in_base.html" %}
 {% load static %}
 
 {% block content %}
 
-    {% with email='<script language="JavaScript" type="text/javascript">        var part1 = "door2door";        var part2 = Math.pow(2,6);        var part3 = String.fromCharCode(part2);        var part4 = "ratchek.com";        var part5 = part1 + String.fromCharCode(part2) + part4;        document.write("<a href=" + "mai" + "lto" + ":"        + part5 + ">" + part1 + part3 + part4 + "</a>.");        </script>' %}
+    {% with email='<script language="JavaScript" type="text/javascript">        var part1 = "door2door";        var part2 = Math.pow(2,6);        var part3 = String.fromCharCode(part2);        var part4 = "ratchek.com";        var part5 = part1 + String.fromCharCode(part2) + part4;        document.write("<a href=" + "mai" + "lto" + ":"        + part5 + ">" + part1 + part3 + part4 + "</a>");        </script>' %}
         {% comment %}
 The above script basically composes my email address in the browser so that it doesn't get scraped
 Here is a newlined version (the with tag doesn't allow for new lines i think)
@@ -14,7 +14,7 @@ Here is a newlined version (the with tag doesn't allow for new lines i think)
         var part4 = "ratchek.com";
         var part5 = part1 + String.fromCharCode(part2) + part4;
         document.write("<a href=" + "mai" + "lto" + ":"
-        + part5 + ">" + part1 + part3 + part4 + "</a>.");
+        + part5 + ">" + part1 + part3 + part4 + "</a>");
         </script>'
 
 
@@ -31,18 +31,18 @@ Here is a newlined version (the with tag doesn't allow for new lines i think)
 
         <details>
             <summary> How do I get in touch?</summary>
-            <p>You can email me at {{email}} </p>
+            <p>You can email me at {{email}}. </p>
         </details>
 
         <details>
             <summary> My friend wants to use this. How do they sign up?</summary>
             <p>Currently, this website is still a beta version, so I'm the only one that can create accounts.</p>
-            <p>If you know of anyone that would like to start using it right now, tell them to reach out at {{email}}</p>
+            <p>If you know of anyone that would like to start using it right now, tell them to reach out at {{email}}.</p>
         </details>
 
         <details>
             <summary> How do i reset my password</summary>
-            <p>Same as with account creation, I'm currently the only one that can do this. Please reach out at {{email}}</p>
+            <p>Same as with account creation, I'm currently the only one that can do this. Please reach out at {{email}}.</p>
         </details>
 
 
