@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "dashboard/base.html" %}
 {% load static %}
 
 {% block navbar %}
@@ -16,7 +16,7 @@
                     <ul role="listbox">
                         <li><a href="{% url 'address-info' %}">Address Lookup</a></li>
                         <li><a href="{% url 'faq' %}">FAQ</a></li>
-                        <li><a href="{% url 'logout' %}?next={{ request.path }}">Log out</a></li>
+                        <li><a href="{% url 'account_logout' %}?next={{ request.path }}">Log out</a></li>
                     </ul>
                 </details>
             </li>

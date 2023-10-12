@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "dashboard/base.html" %}
 {% load static %}
 
 {% block content %}
@@ -11,7 +11,7 @@
                 <h1>Door2Door</h1>
                 <h2>To use this app, you need to be a logged in as a user.</h2>
             </hgroup>
-            <p><a href="{% url 'login'%}" role="button" >Log In</a></p>
+            <p><a href="{% url 'account_login'%}" role="button" >Log In</a></p>
         </div>
 
     </article>
