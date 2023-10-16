@@ -8,3 +8,8 @@
   display: inline;
   padding-right: 5px;
 }
+
+h1 {
+  text-align: center;
+  --typography-spacing-vertical: 2rem;
+}

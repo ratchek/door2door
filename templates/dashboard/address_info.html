@@ -1,5 +1,6 @@
 {% extends "dashboard/logged_in_base.html" %}
 
+
 {% block content %}
 
 
@@ -22,7 +23,7 @@
 
     {%if address%}
         {%if landlords%}
-            <h1>{{address}}</h1>
+            <h2>{{address}}</h2>
             <b>Landlords:</b>
             <ul>
                 {% for landlord in landlords %}
