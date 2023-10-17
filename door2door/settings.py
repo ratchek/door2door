@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "dashboard.apps.DashboardConfig",
+    "myAuth.apps.MyauthConfig",
 ]
 
 MIDDLEWARE = [
@@ -179,3 +180,7 @@ if DEVELOPMENT_MODE:
 ACCOUNT_USERNAME_MIN_LENGTH = 3
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_FORMS = {
+    "signup": "myAuth.forms.MyCustomSignupForm",
+    "set_password": "myAuth.forms.MyCustomSetPasswordForm",
+}
