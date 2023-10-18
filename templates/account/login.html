@@ -9,8 +9,22 @@
         <div>
 
             <h1>{% trans "Sign In" %}</h1>
+            {% comment %} {% if form.errors %}
+                <p>{{form.errors.message}}</p>
+            {% endif %} {% endcomment %}
             {% if form.errors %}
-                <p>{% blocktrans %}Your username and password didn't match. Please try again.{% endblocktrans %}</p>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="errorlist">
+                            <p>{{ error }}</p>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="errorlist">
+                        <p>{{ error }}</p>
+                    </div>
+                {% endfor %}
             {% endif %}
 
 

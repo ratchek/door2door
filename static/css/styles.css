@@ -14,6 +14,6 @@ h1 {
   --typography-spacing-vertical: 2rem;
 }
 
-.errorlist {
+.errorlist * {
   color: #c62828;
 }
