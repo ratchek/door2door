@@ -174,7 +174,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_REDIRECT_URL = "/"
 if DEVELOPMENT_MODE:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = config("EMAIL_HOST")
+    EMAIL_PORT = config("EMAIL_PORT")
+    EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+    EMAIL_USE_TLS = False
+    EMAIL_USE_SSL = True
 
 # allauth settings
 ACCOUNT_USERNAME_MIN_LENGTH = 3
@@ -182,5 +189,4 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_FORMS = {
     "signup": "myAuth.forms.MyCustomSignupForm",
-    "set_password": "myAuth.forms.MyCustomSetPasswordForm",
 }
