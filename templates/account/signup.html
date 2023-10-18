@@ -11,15 +11,6 @@
 
     <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
         {% csrf_token %}
-        {% comment %} {{ form.username.label_tag }}
-        {{ form.username }}
-        {{ form.email.label_tag }}
-        {{ form.email }}
-        {{ form.password1.label_tag }}
-        {{ form.password1 }}
-        {{ form.password2.label_tag }}
-        {{ form.password2 }}
-        {% if %} {% endcomment %}
         {{ form.as_table }}
         {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
