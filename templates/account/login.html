@@ -9,9 +9,6 @@
         <div>
 
             <h1>{% trans "Sign In" %}</h1>
-            {% comment %} {% if form.errors %}
-                <p>{{form.errors.message}}</p>
-            {% endif %} {% endcomment %}
             {% if form.errors %}
                 {% for field in form %}
                     {% for error in field.errors %}
