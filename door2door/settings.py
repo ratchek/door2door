@@ -189,4 +189,5 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_FORMS = {
     "signup": "myAuth.forms.MyCustomSignupForm",
+    "change_password": "myAuth.forms.MyCustomChangePasswordForm",
 }

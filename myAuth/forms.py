@@ -1,4 +1,4 @@
-from allauth.account.forms import SignupForm
+from allauth.account.forms import ChangePasswordForm, SignupForm
 
 
 # Helper function used to switch the password help texts
@@ -26,3 +26,11 @@ class MyCustomSignupForm(SignupForm):
         # # Commented out because deleteHelpTexts doesn't work for some reason
         # if self.errors and (self.errors.keys() & {"password1", "password2"}):
         #     deleteHelpTexts(self)
+
+
+class MyCustomChangePasswordForm(ChangePasswordForm):
+    field_order = ["oldpassword", "password1", "password2"]
+
+    def __init__(self, *args, **kwargs):
+        super(MyCustomChangePasswordForm, self).__init__(*args, **kwargs)
+        switchHelpTexts(self)
