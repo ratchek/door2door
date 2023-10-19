@@ -8,14 +8,16 @@
             <li>
                 <a href="{% url 'index' %}" class="contrast"><strong>Door2Door</strong></a>
             </li>
+            <li><a href="{% url 'address-info' %}" class="contrast">Address Lookup</a></li>
+            <li><a href="{% url 'faq' %}" class="contrast">FAQ</a></li>
         </ul>
         <ul>
             <li>
                 <details role="list" dir="rtl">
                     <summary aria-haspopup="listbox" role="link" class="contrast">Hi {{ user.get_username }}! </summary>
                     <ul role="listbox">
-                        <li><a href="{% url 'address-info' %}">Address Lookup</a></li>
-                        <li><a href="{% url 'faq' %}">FAQ</a></li>
+                        <li><a href="{% url 'account_email' %}">Change email</a></li>
+                        <li><a href="{% url 'account_change_password' %}">Change password</a></li>
                         <li><a href="{% url 'account_logout' %}?next={{ request.path }}">Log out</a></li>
                     </ul>
                 </details>
