@@ -191,3 +191,5 @@ ACCOUNT_FORMS = {
     "signup": "myAuth.forms.MyCustomSignupForm",
     "change_password": "myAuth.forms.MyCustomChangePasswordForm",
 }
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
