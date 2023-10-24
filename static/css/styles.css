@@ -21,6 +21,10 @@ a.contrast:hover {
   background-color: rgba(115, 130, 140, 0.25);
 }
 
+.disclaimer * {
+  color: hsl(205, 10%, 50%);
+}
+
 .full-nav {
   display: none;
 }
