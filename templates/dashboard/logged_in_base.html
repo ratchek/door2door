@@ -4,11 +4,25 @@
 {% block navbar %}
 
     <nav class="container-fluid">
-        <ul>
+
+        <ul class = "side-nav">
+            <li>
+                <details role="list">
+                    <summary aria-haspopup="listbox" role="link" class="contrast"><strong>Door2Door</strong> </summary>
+                    <ul role="listbox">
+                        <li><a href="{% url 'address-info'%}" class="contrast" >Address Lookup</a></li>
+                        <li><a href="{% url 'about' %}" class="contrast">About</a></li>
+                        <li><a href="{% url 'faq' %}" class="contrast">FAQ</a></li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+        <ul class="full-nav">
             <li>
                 <a href="{% url 'index' %}" class="contrast"><strong>Door2Door</strong></a>
             </li>
-            <li><a href="{% url 'address-info' %}" class="contrast">Address Lookup</a></li>
+            <li><a href="{% url 'address-info'%}" class="contrast" >Address Lookup</a></li>
+            <li><a href="{% url 'about' %}" class="contrast">About</a></li>
             <li><a href="{% url 'faq' %}" class="contrast">FAQ</a></li>
         </ul>
         <ul>

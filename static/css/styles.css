@@ -20,3 +20,21 @@ h1 {
 a.contrast:hover {
   background-color: rgba(115, 130, 140, 0.25);
 }
+
+.full-nav {
+  display: none;
+}
+
+.side-nav {
+  display: flex;
+}
+
+@media only screen and (min-width: 768px) {
+  .full-nav {
+    display: flex;
+  }
+
+  .side-nav {
+    display: none;
+  }
+}
