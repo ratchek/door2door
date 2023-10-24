@@ -16,3 +16,7 @@ h1 {
 .errorlist * {
   color: #c62828;
 }
+
+a.contrast:hover {
+  background-color: rgba(115, 130, 140, 0.25);
+}
