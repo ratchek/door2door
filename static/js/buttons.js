@@ -7,9 +7,15 @@ function changeForm() {
 }
 
 function up() {
-  document.getElementById("id_address-house_number").value = "5";
+  initial_value = parseInt(
+    document.getElementById("id_address-house_number").value
+  );
+  document.getElementById("id_address-house_number").value = initial_value + 2;
 }
 
 function down() {
-  document.getElementById("id_address-house_number").value = "1";
+  initial_value = parseInt(
+    document.getElementById("id_address-house_number").value
+  );
+  document.getElementById("id_address-house_number").value = initial_value - 2;
 }
