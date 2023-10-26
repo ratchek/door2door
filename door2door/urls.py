@@ -23,5 +23,6 @@ urlpatterns = [
     # path("dashboard/", include("dashboard.urls")),
     path("admin/", admin.site.urls),
     # Used for authentication
-    path("accounts/", include("django.contrib.auth.urls")),
+    # path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/", include("allauth.urls")),
 ]

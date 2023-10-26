@@ -7,6 +7,11 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path(
+        "about/",
+        login_required(TemplateView.as_view(template_name="dashboard/about.html")),
+        name="about",
+    ),
+    path(
         "faq/",
         login_required(TemplateView.as_view(template_name="dashboard/faq.html")),
         name="faq",

@@ -1,5 +1,44 @@
-.sidebar-nav {
+/* .sidebar-nav {
   margin-top: 20px;
   padding: 0;
   list-style: none;
+} */
+.form-inline label {
+  display: inline;
+  padding-right: 5px;
+}
+
+h1 {
+  text-align: center;
+  --typography-spacing-vertical: 2rem;
+}
+
+.errorlist * {
+  color: #c62828;
+}
+
+a.contrast:hover {
+  background-color: rgba(115, 130, 140, 0.25);
+}
+
+.disclaimer * {
+  color: hsl(205, 10%, 50%);
+}
+
+.full-nav {
+  display: none;
+}
+
+.side-nav {
+  display: flex;
+}
+
+@media only screen and (min-width: 768px) {
+  .full-nav {
+    display: flex;
+  }
+
+  .side-nav {
+    display: none;
+  }
 }

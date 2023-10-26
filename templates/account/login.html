@@ -1,0 +1,50 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock head_title %}
+
+{% block container %}
+    <article class="grid">
+        <div>
+
+            <h1>{% trans "Sign In" %}</h1>
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="errorlist">
+                            <p>{{ error }}</p>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="errorlist">
+                        <p>{{ error }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+
+            <form class="login" method="POST" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                {{ form.login.label_tag }}
+                {{ form.login }}
+                {{ form.password.label_tag }}
+                {{ form.password }}
+                <div class="form-inline">
+                    <p>{{ form.remember.label_tag }} {{ form.remember }}</p>
+                </div>
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+            </form>
+
+            <p><a href="{% url 'account_signup' %}">{% trans "Sign up" %}</a><br>
+                <a href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a></p>
+
+            <div>
+
+            </article>
+
+{% endblock container %}

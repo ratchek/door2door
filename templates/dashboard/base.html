@@ -1,14 +1,13 @@
-{% load i18n %}
 {% load static %}
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static "css/pico/pico.min.css" %}">
         <title>Door2Door</title>
-        <!--      <link rel="stylesheet" href="{% static 'css/styles.css' %}" />-->
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
     </head>
     <body>
 
@@ -21,6 +20,8 @@
                 </ul>
             </nav>
         {% endblock %}
+
+
 
         <main class="container">
             {% block container %}
