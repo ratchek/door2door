@@ -15,7 +15,11 @@ function updtateHouseNumber(val) {
   // Get the last number that occurs (for example for 23-15N, this will return 15)
   var just_numbers = house_number.match(/\d+/g);
   // Make sure there's some numbers in the string!
-  if (just_numbers != null) {
+  if (just_numbers == null) {
+    alert(
+      "I don't know how to change that house number!\nPlease input it by hand."
+    );
+  } else {
     var old_number = just_numbers.pop();
     var new_number = parseInt(old_number) + val;
     if (new_number < 0) {
@@ -32,9 +36,5 @@ function updtateHouseNumber(val) {
       document.getElementById("id_address-house_number").value =
         new_house_number;
     }
-  } else {
-    alert(
-      "I don't know how to change that house number!\nPlease input it by hand."
-    );
   }
 }
