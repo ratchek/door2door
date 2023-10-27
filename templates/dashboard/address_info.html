@@ -11,14 +11,14 @@
             {{ search_form.street_name.errors }}
         </div>
         <div class="row">
-            <div class="col-2">
-                <button type="button" value="UP" onClick="up()" > Up </button>
-                <button type="button" value="DOWN" onClick="down()" > Down </button>
+            <div class="col-lg-1 col-2 arrow-col">
+                <button type="button" value="UP" onClick="up()" class="arrow-button outline"> &#10224; </button>
+                <button type="button" value="DOWN" onClick="down()" class="arrow-button outline"> &#10225; </button>
             </div>
-            <div class="col-3">
+            <div class="col-lg-3 col-5">
                 {{ search_form.house_number.label_tag }} {{ search_form.house_number }}
             </div>
-            <div class="col-7">
+            <div class="col-lg-8 col-5">
                 {{ search_form.street_name.label_tag }} {{ search_form.street_name }}
             </div>
         </div>

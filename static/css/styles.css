@@ -33,6 +33,19 @@ a.contrast:hover {
   display: flex;
 }
 
+.arrow-button {
+  max-height: 50%;
+  width: 100%;
+  text-align: center;
+  margin: 15% 0 0 0;
+  padding: 0;
+}
+
+.arrow-col {
+  margin-right: 0;
+  padding: 1rem 1% 0 4%;
+}
+
 @media only screen and (min-width: 768px) {
   .full-nav {
     display: flex;
