@@ -57,31 +57,33 @@ def save_visit_info_to_database(visit_form, user):
     logger.warning("Form data saved")
 
 
-# Save visit form info and redirect back to address-info page
 @login_required
 @require_POST
-def submit_visit_info(request, house_number=None, street_name=None):
+def save_visit_info(request):
     visit_form = VisitForm(request.POST, prefix="visit")
     # TODO check if data was modified
     # Right now visit_form.has_changed() does nothing
     if visit_form.is_valid() and visit_form.has_changed():
         save_visit_info_to_database(visit_form, request.user)
 
-        return HttpResponseRedirect(
-            reverse(
-                "address-info",
-                kwargs={"house_number": house_number, "street_name": street_name},
-            )
+
+# Save visit form info and redirect back to address-info page
+@login_required
+@require_POST
+def submit_visit_info(request, house_number, street_name):
+    save_visit_info(request)
+    return HttpResponseRedirect(
+        reverse(
+            "address-info",
+            kwargs={"house_number": house_number, "street_name": street_name},
         )
+    )
 
 
 #  Parse search parameters and redirect to address_info with appropriate arguments
 @login_required
 @require_POST
 def search(request):
-    # TODO check if VisitForm was modified. If yes, call save_visit_info_to_database first
-    # visit_form = VisitForm(request.POST, prefix="visit")
-
     address_form = AddressForm(request.POST, prefix="address")
     if address_form.is_valid():
         cleaned = address_form.cleaned_data
