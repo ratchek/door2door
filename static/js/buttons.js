@@ -8,7 +8,6 @@ function down() {
 
 function updtateHouseNumber(val) {
   // Change so that stuff like 36-63 works as expected (you'll need to extract the number, increment it, then put it back in.)
-  // Right now the if statement is creating an endless 0 when 0 happens to be the number. Fix that
   var new_value;
   // Get the value entered into the house_number field
   var house_number = document.getElementById("id_address-house_number").value;

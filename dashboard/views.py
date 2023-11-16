@@ -15,14 +15,27 @@ logger = logging.getLogger(__name__)
 
 
 def index(request):
-    # Index is used strictly for logging in.
-    # If user is already logged in, redirect to address-info
+    """
+    The index view, primarily used for logging in.
+
+    If the user is already authenticated, they are redirected to the address-info view.
+    """
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse("address-info"))
     return render(request, "dashboard/index.html", {})
 
 
 def save_visit_info_to_database(visit_form, user):
+    """
+    Saves or updates a visit record in the database based on the provided form data.
+
+    Args:
+        visit_form (VisitForm): The form containing visit information.
+        user (User): The user (agent) who is making the entry.
+
+    If a visit record for the same address and agent already exists on the same day, it is updated.
+    Otherwise, a new record is created.
+    """
     cleaned = visit_form.cleaned_data
 
     # Check if there was already a visit today
@@ -60,6 +73,12 @@ def save_visit_info_to_database(visit_form, user):
 @login_required
 @require_POST
 def save_visit_info(request):
+    """
+    Processes the POST request to save visit information.
+
+    This view is triggered by the VisitForm submission.
+    If the form is valid, the data is saved using the save_visit_info_to_database function.
+    """
     visit_form = VisitForm(request.POST, prefix="visit")
     # TODO check if data was modified
     # Right now visit_form.has_changed() does nothing
@@ -71,6 +90,16 @@ def save_visit_info(request):
 @login_required
 @require_POST
 def submit_visit_info(request, house_number, street_name):
+    """
+    Handles the POST request for submitting visit information.
+    Product of refactoring. For now, just a wrapper around save_visit_info, but will be utilized in the future to keep code DRY.
+
+    Args:
+        house_number (str): The house number of the visited address.
+        street_name (str): The street name of the visited address.
+
+    After processing the visit information, the user is redirected back to the address-info page.
+    """
     save_visit_info(request)
     return HttpResponseRedirect(
         reverse(
@@ -84,6 +113,12 @@ def submit_visit_info(request, house_number, street_name):
 @login_required
 @require_POST
 def search(request):
+    """
+    Handles the POST request for searching an address.
+
+    This view processes the AddressForm. If the form is valid, it redirects to the address-info view
+    with the house number and street name as arguments.
+    """
     address_form = AddressForm(request.POST, prefix="address")
     if address_form.is_valid():
         cleaned = address_form.cleaned_data
@@ -102,6 +137,16 @@ def search(request):
 
 @login_required
 def address_info(request, house_number=None, street_name=None):
+    """
+    Displays information about a specific address.
+
+    Args:
+        house_number (str, optional): The house number of the address.
+        street_name (str, optional): The street name of the address.
+
+    This view shows information about the landlords, past visits, and a form for recording a new visit
+    if a house number and street name are provided. Otherwise, it shows a blank search form.
+    """
     # # Some house numbers have letters in them so they also need to be capitalized
     # house_number = house_number.upper()
     # street_name = street_name.upper()
