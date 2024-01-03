@@ -1,0 +1,6 @@
+[run]
+source = door2door, dashboard
+omit =
+    */migrations/*
+    */tests/*
+    manage.py
