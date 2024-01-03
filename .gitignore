@@ -5,3 +5,4 @@ settings.ini
 db.sqlite3
 TODO
 .vscode/
+.coverage
