@@ -22,7 +22,6 @@ urlpatterns = [
     # URL for viewing address information without parameters.
     path("address-info/", views.address_info, name="address-info"),
     # URL pattern for accessing detailed information about a specific address.
-    # URL pattern using regex to match 'address-info' followed by house number and street name.
     # The regex pattern `(?P<house_number>[-\w ]+)` matches any combination of alphanumeric characters,
     # hyphens, and spaces for the house number. Similarly, `(?P<street_name>[-\w ]+)` matches the street name.
     # These are captured as named groups for use in the view.
