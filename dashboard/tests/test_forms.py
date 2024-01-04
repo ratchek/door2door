@@ -30,7 +30,7 @@ class AddressFormTest(TestCase):
         form = AddressForm(data={})
         self.assertFalse(form.is_valid())
         print(form.errors)
-        self.assertEquals(
+        self.assertEqual(
             form.errors,
             {
                 "house_number": ["This field is required."],
