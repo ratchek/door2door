@@ -1,26 +1,32 @@
-from django.test import TestCase
+# tests.py
+
+from django.contrib.auth.models import AnonymousUser, User
+from django.test import RequestFactory, TestCase
+from django.urls import reverse
+
+from dashboard.views import index
 
 
-class YourTestClass(TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        print(
-            "setUpTestData: Run once to set up non-modified data for all class methods."
-        )
-        pass
-
+class IndexViewTest(TestCase):
     def setUp(self):
-        print("setUp: Run once for every test method to setup clean data.")
-        pass
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(
+            username="jacob", email="jacob@gmail.com", password="top_secret"
+        )
 
-    def test_false_is_false(self):
-        print("Method: test_false_is_false.")
-        self.assertFalse(False)
+    def test_index_view_authenticated_user(self):
+        request = self.factory.get("/")
+        request.user = self.user
 
-    def test_false_is_true(self):
-        print("Method: test_false_is_true.")
-        self.assertTrue(False)
+        response = index(request)
+        self.assertEqual(response.status_code, 302)  # Expecting a redirect
+        self.assertRedirects(
+            response, reverse("address-info"), fetch_redirect_response=False
+        )
 
-    def test_one_plus_one_equals_two(self):
-        print("Method: test_one_plus_one_equals_two.")
-        self.assertEqual(1 + 1, 2)
+    def test_index_view_unauthenticated_user(self):
+        request = self.factory.get("/")
+        request.user = AnonymousUser()
+
+        response = index(request)
+        self.assertEqual(response.status_code, 200)  # Expecting a success status code
