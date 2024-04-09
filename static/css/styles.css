@@ -55,3 +55,13 @@ a.contrast:hover {
     display: none;
   }
 }
+
+.g-recaptcha {
+  overflow: hidden;
+  width: 298px;
+  height: 74px;
+  margin-bottom: 1em;
+}
+iframe {
+  margin: -1px 0px 0px -2px;
+}
