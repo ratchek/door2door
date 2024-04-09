@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "allauth",
     "allauth.account",
+    "django_recaptcha",
     "dashboard.apps.DashboardConfig",
     "myAuth.apps.MyauthConfig",
 ]
@@ -195,3 +196,12 @@ ACCOUNT_FORMS = {
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_CHANGE_EMAIL = True
+
+# recaptcha settings
+RECAPTCHA_PUBLIC_KEY = config("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = config("RECAPTCHA_PRIVATE_KEY")
+# RECAPTCHA_DEFAULT_ACTION = "generic"
+# RECAPTCHA_SCORE_THRESHOLD = 0.5
+# RECAPTCHA_DOMAIN = config("DOMAIN")
+# RECAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify"
+# RECAPTCHA_TIMEOUT = 5

@@ -1,4 +1,5 @@
 from allauth.account.forms import ChangePasswordForm, SignupForm
+from django_recaptcha.fields import ReCaptchaField
 
 
 # Helper function used to switch the password help texts
@@ -17,7 +18,8 @@ def deleteHelpTexts(form):
 
 
 class MyCustomSignupForm(SignupForm):
-    field_order = ["username", "email", "password1", "password2"]
+    captcha = ReCaptchaField()
+    field_order = ["username", "email", "password1", "password2", "captcha"]
 
     def __init__(self, *args, **kwargs):
         super(MyCustomSignupForm, self).__init__(*args, **kwargs)
