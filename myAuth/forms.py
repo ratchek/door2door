@@ -1,4 +1,4 @@
-from allauth.account.forms import ChangePasswordForm, SignupForm
+from allauth.account.forms import ChangePasswordForm, ResetPasswordForm, SignupForm
 from django_recaptcha.fields import ReCaptchaField
 from django_recaptcha.widgets import ReCaptchaV2Checkbox
 
@@ -44,3 +44,18 @@ class MyCustomChangePasswordForm(ChangePasswordForm):
     def __init__(self, *args, **kwargs):
         super(MyCustomChangePasswordForm, self).__init__(*args, **kwargs)
         switchHelpTexts(self)
+
+
+class MyCustomResetPasswordForm(ResetPasswordForm):
+    captcha = ReCaptchaField(
+        label="",
+        widget=ReCaptchaV2Checkbox(
+            attrs={
+                "data-theme": "dark",
+            }
+        ),
+    )
+    field_order = ["email", "captcha"]
+
+    def __init__(self, *args, **kwargs):
+        super(MyCustomResetPasswordForm, self).__init__(*args, **kwargs)

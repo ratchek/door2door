@@ -192,6 +192,7 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_FORMS = {
     "signup": "myAuth.forms.MyCustomSignupForm",
     "change_password": "myAuth.forms.MyCustomChangePasswordForm",
+    "reset_password": "myAuth.forms.MyCustomResetPasswordForm",
 }
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
