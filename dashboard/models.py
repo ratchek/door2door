@@ -14,6 +14,7 @@ class VisitedAddress(models.Model):
         knocked (BooleanField): Indicates whether the agent knocked on the door.
         door_opened (BooleanField): Indicates whether someone opened the door.
         owners_available (BooleanField): Indicates whether the owners were available during the visit.
+        owners_not_interested (BooleanField): Indicates that the owners were not interested in selling.
         notes (TextField): Additional notes about the visit, can be blank.
     """
 
@@ -24,6 +25,7 @@ class VisitedAddress(models.Model):
     knocked = models.BooleanField()
     door_opened = models.BooleanField()
     owners_available = models.BooleanField()
+    owners_not_interested = models.BooleanField()
     notes = models.TextField(blank=True)
 
     def __str__(self) -> str:

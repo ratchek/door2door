@@ -53,6 +53,7 @@ def save_visit_info_to_database(visit_form, user):
         todays_visit.knocked = cleaned["knocked"]
         todays_visit.door_opened = cleaned["door_opened"]
         todays_visit.owners_available = cleaned["owners_available"]
+        todays_visit.owners_not_interested = cleaned["owners_not_interested"]
         todays_visit.notes = cleaned["notes"]
         todays_visit.save()
     else:
@@ -65,6 +66,7 @@ def save_visit_info_to_database(visit_form, user):
             knocked=cleaned["knocked"],
             door_opened=cleaned["door_opened"],
             owners_available=cleaned["owners_available"],
+            owners_not_interested=cleaned["owners_not_interested"],
             notes=cleaned["notes"],
         )
     logger.warning("Form data saved")

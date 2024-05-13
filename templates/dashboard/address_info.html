@@ -61,6 +61,12 @@
                 <input type="checkbox" name="visit-owners_available" id="id_visit-owners_available" {%if current_visit_form.owners_available%} checked {%endif%}>
                 Owners available
             </label>
+            {{ current_visit_form.owners_not_interested.errors }}
+            <label for="id_visit-owners_not_interested">
+                <input type="checkbox" name="visit-owners_not_interested" id="id_visit-owners_not_interested" {%if current_visit_form.owners_not_interested%} checked {%endif%}>
+                Owners not interested
+            </label>
+
 
             {{current_visit_form.notes}}
             {{current_visit_form.nycdb_building_id}} {% endcomment %}
@@ -82,6 +88,7 @@
                     {%if visit.knocked %} <mark>K</mark>{%endif%}
                     {%if visit.door_opened %} <mark>D</mark>{%endif%}
                     {%if visit.owners_available %} <mark>O</mark>{%endif%}
+                    {%if visit.owners_not_interested %} <mark>X</mark>{%endif%}
                     <br>
                     {{visit.notes}}</li>
             {%endfor%}

@@ -19,6 +19,7 @@ class VisitedAddressTests(TestCase):
             knocked=True,
             door_opened=False,
             owners_available=True,
+            owners_not_interested=True,
             notes="Test note",
         )
 
@@ -38,6 +39,7 @@ class VisitedAddressTests(TestCase):
         self.assertTrue(self.address.knocked)
         self.assertFalse(self.address.door_opened)
         self.assertTrue(self.address.owners_available)
+        self.assertTrue(self.address.owners_not_interested)
         self.assertEqual(self.address.notes, "Test note")
 
     def test_string_representation(self):
@@ -59,6 +61,7 @@ class VisitedAddressTests(TestCase):
             knocked=False,
             door_opened=True,
             owners_available=False,
+            owners_not_interested=False,
             notes="",
         )
         self.assertEqual(new_address.house_number, "456B")

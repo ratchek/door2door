@@ -47,6 +47,7 @@ class VisitForm(forms.ModelForm):
             "knocked",
             "door_opened",
             "owners_available",
+            "owners_not_interested",
             "notes",
         ]
         widgets = {

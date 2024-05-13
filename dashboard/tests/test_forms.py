@@ -52,6 +52,7 @@ class VisitFormTest(TestCase):
                 "visit-knocked": True,
                 "visit-door_opened": False,
                 "visit-owners_available": True,
+                "visit-owners_not_interested": True,
                 "visit-notes": "Test note",
             },
             instance=VisitedAddress(
@@ -68,6 +69,7 @@ class VisitFormTest(TestCase):
                 "visit-knocked": True,
                 "visit-door_opened": False,
                 "visit-owners_available": True,
+                "visit-owners_not_interested": True,
                 "visit-notes": "Test note",
             },
             instance=VisitedAddress(
@@ -80,4 +82,5 @@ class VisitFormTest(TestCase):
         self.assertEqual(visit.knocked, True)
         self.assertEqual(visit.door_opened, False)
         self.assertEqual(visit.owners_available, True)
+        self.assertEqual(visit.owners_not_interested, True)
         self.assertEqual(visit.notes, "Test note")
